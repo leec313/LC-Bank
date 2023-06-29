@@ -1,6 +1,6 @@
+import os
 import gspread
 from google.oauth2.service_account import Credentials
-import os
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -42,6 +42,33 @@ _____`--._ ''      . '---'``--._|:::::::|:::::::::::::::::::::::|
 `--._ _________`--._'        --     .   ''-----.................'
     """
     print(building)
+
+
+def create_or_login():
+    """
+    Allows the user to choose login or create an account. 
+    Runs correct function depending on the input
+    """
+    while True:
+        try:
+            option = int(
+                input("Press 1 to Login or 2 to create an account: \n"))
+            if option == 1:
+                login()
+                print(option)
+            elif option == 2:
+                create_account()
+        except ValueError as e:
+            print(f"Invalid entry: {e}, please enter a valid option")
+        else:
+            break
+
+
+def create_account():
+    """
+    Allows user to create an account, with details taken such as
+    name and password. Then generates an ID number for login
+    """
 
 
 def login():
@@ -234,7 +261,7 @@ def main():
     Initialises all program functions
     """
     welcome()
-    login()
+    create_or_login()
 
 
 main()
