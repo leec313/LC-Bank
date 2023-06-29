@@ -64,10 +64,10 @@ def login():
         passwords.append(sublist[1])
         ids.append(sublist[2])
 
-    input_1 = input("Enter your ID: ")
-    input_2 = input("Enter your Password: ")
-
     while True:
+        input_1 = input("Enter your ID: ")
+        input_2 = input("Enter your password: ")
+
         for i, (id, password) in enumerate(zip(ids, passwords)):
             if input_1 == id and input_2 == password:
                 name = names[i]
@@ -75,9 +75,9 @@ def login():
                 print(f"Welcome {name}! Thanks for banking with LC Bank.\n")
                 options()
                 break
-            else:
-                print("Invalid ID or password. Please try again.")
-                continue
+        else:
+            print("Invalid ID or password. Please try again.")
+            continue
         break
 
 
