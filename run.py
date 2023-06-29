@@ -58,8 +58,8 @@ def create_or_login():
                 print(option)
             elif option == 2:
                 create_account()
-        except ValueError as e:
-            print(f"Invalid entry: {e}, please enter a valid option")
+        except ValueError:
+            print("Invalid entry, please enter a valid option")
         else:
             break
 
@@ -69,12 +69,25 @@ def create_account():
     Allows user to create an account, with details taken such as
     name and password. Then generates an ID number for login
     """
+
+    # Get the data list from the "password" worksheet
+    data = SHEET.worksheet("password").get_all_values()
+    # Get the data list from the "current" worksheet
+    current_data = SHEET.worksheet("current").get_all_values()
+
     print("Thanks for choosing to bank with us! Provide us with your details:")
     name = input("Name: \n")
     password = input("Password: \n")
 
-    # Get the data list from the "password" worksheet
-    data = SHEET.worksheet("password").get_all_values()
+    # Check if the name already exists in the data list
+    existing_names = [row[0] for row in data[1:]]  # Exclude header row
+    if name in existing_names:
+        exists = """
+        An account with that name already exists.
+        You'll be taken back to previous screen
+        """
+        print(exists)
+        create_or_login()
 
     # Generate ID based on the length of the data list
     new_id = str(len(data))
@@ -83,11 +96,8 @@ def create_account():
     new_row = [name, password, new_id]
     data.append(new_row)
 
-    # Update the "password" and "amount" worksheets with the updated data
+    # Update the "password" worksheet with the updated data
     SHEET.worksheet("password").update("A1:C", data)
-
-    # Get the data list from the "current" worksheet
-    current_data = SHEET.worksheet("current").get_all_values()
 
     # Append the new account information to the "current" worksheet
     current_row = [name, "0", new_id]
@@ -205,6 +215,8 @@ def deposit(id):
 
     # Updating the balance in the worksheet
     current_sheet.update_cell(row_index, 2, new_amount)
+
+    # Gives option to user on what to do next
     back(id)
 
 
@@ -225,20 +237,28 @@ def withdraw(id):
             break
 
     # Taking the user's input for the withdrawal amount as a float
-    withdraw_amount = float(
-        input("Please enter the amount you wish to withdraw: $\n"))
+    while True:
+        withdraw_amount = float(
+            input("Please enter the amount you wish to withdraw: $\n"))
 
-    # Clearing terminal for better viewing
-    clear_term()
+        # Check if the user's current balance is less than withdrawal input
+        if (withdraw_amount > current_balance):
+            print("You have insufficient funds!")
+            continue
 
-    # Calculation for new balance
-    new_amount = current_balance - withdraw_amount
+        elif withdraw_amount < current_balance:
+            # Clearing terminal for better viewing
+            clear_term()
+            # Calculation for new balance
+            new_amount = current_balance - withdraw_amount
 
-    print(f"Success! You have withdrawn ${withdraw_amount}!")
-    print(f"Your new balance is ${new_amount}.\n")
+            print(f"Success! You have withdrawn ${withdraw_amount}!")
+            print(f"Your new balance is ${new_amount}.\n")
 
-    # Updating the balance in the worksheet
-    current_sheet.update_cell(row_index, 2, new_amount)
+            # Updating the balance in the worksheet
+            current_sheet.update_cell(row_index, 2, new_amount)
+
+    # Gives option to user on what to do next
     back(id)
 
 
