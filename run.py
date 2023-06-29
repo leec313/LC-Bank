@@ -66,8 +66,8 @@ def login():
         ids.append(sublist[2])
 
     while True:
-        input_1 = input("Enter your ID: ")
-        input_2 = input("Enter your password: ")
+        input_1 = input("Enter your ID:\n")
+        input_2 = input("Enter your password:\n")
 
         for i, (id, password) in enumerate(zip(ids, passwords)):
             if input_1 == id and input_2 == password:
@@ -135,7 +135,7 @@ def deposit(id):
 
     # Taking the user's input for the deposit amount as a float
     deposit_amount = float(
-        input("Please enter the amount you wish to deposit: $"))
+        input("Please enter the amount you wish to deposit: $\n"))
 
     # Clearing terminal for better viewing
     clear_term()
@@ -169,7 +169,7 @@ def withdraw(id):
 
     # Taking the user's input for the withdrawal amount as a float
     withdraw_amount = float(
-        input("Please enter the amount you wish to withdraw: $"))
+        input("Please enter the amount you wish to withdraw: $\n"))
 
     # Clearing terminal for better viewing
     clear_term()
@@ -217,7 +217,7 @@ def back(id):
     while True:
         try:
             next_option = input(
-                "Press 1 to be taken back to the Menu or 2 to logout: ")
+                "Press 1 to be taken back to the Menu or 2 to logout:\n")
             if next_option == "1":
                 options(id)
             elif next_option == "2":
