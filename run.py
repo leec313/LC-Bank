@@ -144,10 +144,11 @@ def deposit(id):
     new_amount = current_balance + deposit_amount
 
     print(f"Success! You have deposited ${deposit_amount}!")
-    print(f"Your new balance is ${new_amount}.")
+    print(f"Your new balance is ${new_amount}.\n")
 
     # Updating the balance in the worksheet
     current_sheet.update_cell(row_index, 2, new_amount)
+    back(id)
 
 
 def withdraw(id):
@@ -155,12 +156,49 @@ def withdraw(id):
     Allows user to withdraw from the account of their choosing
     Minus input amount from the current balance
     """
+    current_sheet = SHEET.worksheet("current")
+    current_data = current_sheet.get_all_values()
+
+    # Getting the current account balance and taking it in a float
+    for row in current_data[1:]:
+        if row[2] == id:
+            current_balance = float(row[1])
+            # Adding 1 to account for header row
+            row_index = current_data.index(row) + 1
+            break
+
+    # Taking the user's input for the withdrawal amount as a float
+    withdraw_amount = float(
+        input("Please enter the amount you wish to withdraw: $"))
+
+    # Clearing terminal for better viewing
+    clear_term()
+
+    # Calculation for new balance
+    new_amount = current_balance - withdraw_amount
+
+    print(f"Success! You have withdrawn ${withdraw_amount}!")
+    print(f"Your new balance is ${new_amount}.\n")
+
+    # Updating the balance in the worksheet
+    current_sheet.update_cell(row_index, 2, new_amount)
+    back(id)
 
 
 def check(id):
     """
     Allows user to check the balance in the account of their choosing
     """
+    current_sheet = SHEET.worksheet("current")
+    current_data = current_sheet.get_all_values()
+
+    # Getting the current account balance and taking it in a float
+    for row in current_data[1:]:
+        if row[2] == id:
+            current_balance = float(row[1])
+            break
+    print(f"\nYour current account balance is {current_balance}.\n")
+    back(id)
 
 
 def clear_term():
@@ -168,6 +206,27 @@ def clear_term():
     Clears the terminal to give the user a better, clearer view
     """
     os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def back(id):
+    """
+    Gives the user the option to either go back to the 
+    login screen or the Menu
+    """
+
+    while True:
+        try:
+            next_option = input(
+                "Press 1 to be taken back to the Menu or 2 to logout: ")
+            if next_option == "1":
+                options(id)
+            elif next_option == "2":
+                main()
+            else:
+                clear_term()
+                print("Enter a valid option")
+        except ValueError:
+            print("Enter a valid option")
 
 
 def main():
