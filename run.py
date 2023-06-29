@@ -257,6 +257,7 @@ def withdraw(id):
 
             # Updating the balance in the worksheet
             current_sheet.update_cell(row_index, 2, new_amount)
+            break
 
     # Gives option to user on what to do next
     back(id)
