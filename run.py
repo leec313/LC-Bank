@@ -59,6 +59,7 @@ def login():
     passwords = []
     ids = []
 
+    # taking the user data and assigning it to corresponding elements
     for sublist in user_data[1:]:  # Start from index 1 to skip the header row
         names.append(sublist[0])
         passwords.append(sublist[1])
@@ -73,7 +74,7 @@ def login():
                 name = names[i]
                 clear_term()
                 print(f"Welcome {name}! Thanks for banking with LC Bank.\n")
-                options()
+                options(id)
                 break
         else:
             print("Invalid ID or password. Please try again.")
@@ -81,11 +82,12 @@ def login():
         break
 
 
-def options():
+def options(id):
     """
     Asks user to select options on what they would like to do next
     Options may include withdraw, deposit, check balance etc.
     """
+    print(f"ID: {id}\n")
     while True:
         print("1: Deposit")
         print("2: Withdraw")
@@ -94,13 +96,13 @@ def options():
             input("Please select one of the options above to get started:\n"))
 
         if selection == 1:
-            deposit()
+            deposit(id)
             break
         elif selection == 2:
-            withdraw()
+            withdraw(id)
             break
         elif selection == 3:
-            check()
+            check(id)
             break
         else:
             print(
@@ -109,21 +111,28 @@ def options():
         break
 
 
-def deposit():
+def deposit(id):
     """
     Allows user to deposit from the account of their choosing
     Adds input amount from the current balance
     """
+    current = SHEET.worksheet("current").get_all_values()
+    for entry in current[1:]:
+        if entry[2] == id:
+            matching_amount = entry[1]
+            print(
+                f"The corresponding amount for ID {id} is: {matching_amount}")
+            break  # Exit the loop if a match is found
 
 
-def withdraw():
+def withdraw(id):
     """
     Allows user to withdraw from the account of their choosing
     Minus input amount from the current balance
     """
 
 
-def check():
+def check(id):
     """
     Allows user to check the balance in the account of their choosing
     """
