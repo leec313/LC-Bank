@@ -119,10 +119,15 @@ def deposit(id):
     current = SHEET.worksheet("current").get_all_values()
     for entry in current[1:]:
         if entry[2] == id:
-            matching_amount = entry[1]
-            print(
-                f"The corresponding amount for ID {id} is: {matching_amount}")
+            matching_amount = float(entry[1])
             break  # Exit the loop if a match is found
+
+    deposit_amount = float(
+        input("Please enter the amount you wish to deposit: $"))
+    clear_term()
+    new_amount = deposit_amount + matching_amount
+    print(f"Success! You have deposited ${deposit_amount}!")
+    print(f"Your new balance is ${new_amount}.")
 
 
 def withdraw(id):
