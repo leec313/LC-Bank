@@ -92,6 +92,8 @@ def options(id):
         print("1: Deposit")
         print("2: Withdraw")
         print("3: Check Balance")
+        print("4: Logout")
+        print("5: Exit")
         selection = int(
             input("Please select one of the options above to get started:\n"))
 
@@ -104,6 +106,10 @@ def options(id):
         elif selection == 3:
             check(id)
             break
+        elif selection == 4:
+            main()
+        elif selection == 5:
+            exit()
         else:
             print(
                 f"Invalid! You entered {selection}, enter a valid option:\n")
@@ -116,18 +122,32 @@ def deposit(id):
     Allows user to deposit from the account of their choosing
     Adds input amount from the current balance
     """
-    current = SHEET.worksheet("current").get_all_values()
-    for entry in current[1:]:
-        if entry[2] == id:
-            matching_amount = float(entry[1])
-            break  # Exit the loop if a match is found
+    current_sheet = SHEET.worksheet("current")
+    current_data = current_sheet.get_all_values()
 
+    # Getting the current account balance and taking it in a float
+    for row in current_data[1:]:
+        if row[2] == id:
+            current_balance = float(row[1])
+            # Adding 1 to account for header row
+            row_index = current_data.index(row) + 1
+            break
+
+    # Taking the user's input for the deposit amount as a float
     deposit_amount = float(
         input("Please enter the amount you wish to deposit: $"))
+
+    # Clearing terminal for better viewing
     clear_term()
-    new_amount = deposit_amount + matching_amount
+
+    # Calculation for new balance
+    new_amount = current_balance + deposit_amount
+
     print(f"Success! You have deposited ${deposit_amount}!")
     print(f"Your new balance is ${new_amount}.")
+
+    # Updating the balance in the worksheet
+    current_sheet.update_cell(row_index, 2, new_amount)
 
 
 def withdraw(id):
