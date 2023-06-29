@@ -69,6 +69,36 @@ def create_account():
     Allows user to create an account, with details taken such as
     name and password. Then generates an ID number for login
     """
+    print("Thanks for choosing to bank with us! Provide us with your details:")
+    name = input("Name: \n")
+    password = input("Password: \n")
+
+    # Get the data list from the "password" worksheet
+    data = SHEET.worksheet("password").get_all_values()
+
+    # Generate ID based on the length of the data list
+    new_id = str(len(data))
+
+    # Append the new user data to the data list
+    new_row = [name, password, new_id]
+    data.append(new_row)
+
+    # Update the "password" and "amount" worksheets with the updated data
+    SHEET.worksheet("password").update("A1:C", data)
+
+    # Get the data list from the "current" worksheet
+    current_data = SHEET.worksheet("current").get_all_values()
+
+    # Append the new account information to the "current" worksheet
+    current_row = [name, "0", new_id]
+    current_data.append(current_row)
+
+    # Update the "current" worksheet with the updated data
+    SHEET.worksheet("current").update("A1:C", current_data)
+
+    print(f"Account created successfully! Your ID is {new_id}.")
+
+    login()
 
 
 def login():
