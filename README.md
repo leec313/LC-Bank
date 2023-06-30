@@ -125,3 +125,67 @@ def check(user_id):
             break
     print(f"\nYour current account balance is {current_balance}.\n")
     back(user_id)
+
+
+
+
+
+________________________________________________________________________________________________________
+
+
+def forgot_id():
+    """
+    Allows user to type in their name and it gives them their ID
+    """
+    clear_term()
+    # Getting the user and password data from the worksheet
+    user_data = SHEET.worksheet("password").get_all_values()
+
+    names = []
+    user_ids = []
+
+    # taking the user data and assigning it to corresponding elements
+    for sublist in user_data[1:]:  # Start from index 1 to skip the header row
+        names.append(sublist[0])
+        user_ids.append(sublist[2])
+
+    user_input = input("Enter your name: \n")
+
+    # Checking the input data against the spreadsheet data
+    for i, (name, user_id) in enumerate(zip(names, user_ids)):
+        if user_input == name:  # Compare the user input with the name
+            user_id = user_ids[i]  # Get the corresponding user ID
+            clear_term()
+            print(f"{user_input}, your ID is: {user_id}.\n")
+            break
+
+    login()
+
+
+def forgot_password():
+    """
+    Allows user to type in their ID and it gives them their password
+    """
+    clear_term()
+    # Getting the user and password data from the worksheet
+    user_data = SHEET.worksheet("password").get_all_values()
+
+    passwords = []
+    user_ids = []
+
+    # taking the user data and assigning it to corresponding elements
+    for sublist in user_data[1:]:  # Start from index 1 to skip the header row
+        passwords.append(sublist[1])
+        user_ids.append(sublist[2])
+
+    user_input = input("Enter your ID: \n")
+
+    # Checking the input data against the spreadsheet data
+    for i, (password, user_id) in enumerate(zip(passwords, user_ids)):
+        if user_input == user_id:  # Compare the user input with the name
+            password = passwords[i]  # Get the corresponding user ID
+            clear_term()
+            print(f"Your password is: {password}.\n")
+            break
+
+    login()

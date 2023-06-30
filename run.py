@@ -5,6 +5,7 @@ create an account, check their balance, deposit, withdraw.
 import os
 import gspread
 from google.oauth2.service_account import Credentials
+from colorama import Fore, Back, Style
 
 # Connecting Google Sheet to project
 SCOPE = [
@@ -55,6 +56,7 @@ def create_or_login():
     Runs correct function depending on the input
     """
     while True:
+        print(Style.RESET_ALL)
         try:
             option = int(
                 input("Press 1 to Login or 2 to create an account: \n"))
@@ -62,8 +64,11 @@ def create_or_login():
                 login()
             elif option == 2:
                 create_account()
+            else:
+                print(Fore.RED + "Invalid entry, please enter a valid option")
+                continue
         except ValueError:
-            print("Invalid entry, please enter a valid option")
+            print(Fore.RED + "Invalid entry, please enter a valid option")
         else:
             break
 
@@ -80,7 +85,7 @@ def create_account():
     current_data = SHEET.worksheet("current").get_all_values()
 
     print("Thanks for choosing to bank with us! Provide us with your details:")
-    name = input("Name: \n")
+    name = input(Back.GREEN + "Name: \n")
     password = input("Password: \n")
 
     # Check if the name already exists in the data list
@@ -111,7 +116,7 @@ def create_account():
     SHEET.worksheet("current").update("A1:C", current_data)
 
     print(f"Account created successfully! Your ID is {new_id}.")
-
+    print(Style.RESET_ALL)
     login()
 
 
@@ -141,13 +146,13 @@ def login():
         input_1 = input("Enter your ID:\n")
 
         if input_1 == "f":
-            forgot_id()
+            forgot_credentials("id")
             break
         else:
             print("\nForgot your password? Press 'P'\n")
             input_2 = input("Enter your password:\n")
             if input_2 == "p":
-                forgot_password()
+                forgot_credentials("password")
                 break
             else:
                 for i, (user_id, password) in enumerate(zip(ids, passwords)):
@@ -228,7 +233,7 @@ def transaction(user_id, transaction_type):
         amount = float(input("Enter deposit amount: "))
         balance += amount
         print(f"Deposited {amount} successfully.")
-        back(user_id)
+
     elif transaction_type == "withdraw":
         amount = float(input("Enter withdrawal amount: "))
         if balance < amount:
@@ -236,17 +241,17 @@ def transaction(user_id, transaction_type):
             return
         balance -= amount
         print(f"Withdrawn {amount} successfully.")
-        back(user_id)
+
     elif transaction_type == "check":
         print(f"Your balance is: {balance}")
         return
-        back(user_id)
 
     # Update the balance value in the worksheet
     user_row[1] = str(balance)
     # Get the cell address for the user's balance
     cell_address = f"B{data.index(user_row) + 2}"
     worksheet.update(cell_address, str(balance))
+    back(user_id)
 
 
 def clear_term():
@@ -279,60 +284,45 @@ def back(user_id):
             print("Enter a valid option")
 
 
-def forgot_id():
+def forgot_credentials(credential_type):
     """
-    Allows user to type in their name and it gives them their ID
+    Allows the user to retrieve their ID or
+    password based on the provided credential type.
     """
     clear_term()
     # Getting the user and password data from the worksheet
     user_data = SHEET.worksheet("password").get_all_values()
 
-    names = []
     user_ids = []
+    names = []
+    passwords = []
 
-    # taking the user data and assigning it to corresponding elements
+    # Taking the user data and assigning it to corresponding elements
     for sublist in user_data[1:]:  # Start from index 1 to skip the header row
         names.append(sublist[0])
         user_ids.append(sublist[2])
-
-    user_input = input("Enter your name: \n")
-
-    # Checking the input data against the spreadsheet data
-    for i, (name, user_id) in enumerate(zip(names, user_ids)):
-        if user_input == name:  # Compare the user input with the name
-            user_id = user_ids[i]  # Get the corresponding user ID
-            clear_term()
-            print(f"{user_input}, your ID is: {user_id}.\n")
-            break
-
-    login()
-
-
-def forgot_password():
-    """
-    Allows user to type in their ID and it gives them their password
-    """
-    clear_term()
-    # Getting the user and password data from the worksheet
-    user_data = SHEET.worksheet("password").get_all_values()
-
-    passwords = []
-    user_ids = []
-
-    # taking the user data and assigning it to corresponding elements
-    for sublist in user_data[1:]:  # Start from index 1 to skip the header row
         passwords.append(sublist[1])
-        user_ids.append(sublist[2])
 
-    user_input = input("Enter your ID: \n")
-
-    # Checking the input data against the spreadsheet data
-    for i, (password, user_id) in enumerate(zip(passwords, user_ids)):
-        if user_input == user_id:  # Compare the user input with the name
-            password = passwords[i]  # Get the corresponding user ID
-            clear_term()
-            print(f"Your password is: {password}.\n")
-            break
+    if credential_type == "id":
+        user_input = input("Enter your name: \n")
+        # Checking the input data against the spreadsheet data
+        for name, user_id in zip(names, user_ids):
+            if user_input == name:  # Compare the user input with the name
+                clear_term()
+                print(f"Your {credential_type} is: {user_id}\n")
+                break
+    elif credential_type == "password":
+        user_input = input("Enter your ID: \n")
+        # Checking the input data against the spreadsheet data
+        for user_id, password in zip(user_ids, passwords):
+            if user_input == user_id:  # Compare the user input with the ID
+                clear_term()
+                print(f"Your {credential_type} is: {password}\n")
+                break
+    else:
+        print(f"Invalid credential type: {credential_type}")
+        login()
+        return
 
     login()
 
