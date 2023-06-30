@@ -159,8 +159,8 @@ def login():
                     if input_1 == user_id and input_2 == password:
                         name = names[i]
                         clear_term()
-                        print(
-                            f"Welcome to LC Bank, {name}!\n")
+                        print(Back.MAGENTA +
+                              f"Welcome to LC Bank, {name}!\n")
                         options(user_id)
                         break
                 else:
@@ -174,7 +174,8 @@ def options(user_id):
     Asks user to select options on what they would like to do next
     Options may include withdraw, deposit, check balance etc.
     """
-    print(f"ID: {user_id}\n")
+    print(Back.CYAN + f"ID: {user_id}\n")
+    print(Style.RESET_ALL)
     while True:
         try:
             print("1: Deposit")
