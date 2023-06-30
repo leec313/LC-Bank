@@ -30,3 +30,98 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 ---
 
 Happy coding!
+
+
+def deposit(user_id):
+    """
+    Allows user to deposit from the account of their choosing
+    Adds input amount from the current balance
+    """
+    current_sheet = SHEET.worksheet("current")
+    current_data = current_sheet.get_all_values()
+
+    # Getting the current account balance and taking it in a float
+    for row in current_data[1:]:
+        if row[2] == user_id:
+            current_balance = float(row[1])
+            # Adding 1 to account for header row
+            row_index = current_data.index(row) + 1
+            break
+
+    # Taking the user's input for the deposit amount as a float
+    deposit_amount = float(
+        input("Please enter the amount you wish to deposit: $\n"))
+
+    # Clearing terminal for better viewing
+    clear_term()
+
+    # Calculation for new balance
+    new_amount = current_balance + deposit_amount
+
+    print(f"Success! You have deposited ${deposit_amount}!")
+    print(f"Your new balance is ${new_amount}.\n")
+
+    # Updating the balance in the worksheet
+    current_sheet.update_cell(row_index, 2, new_amount)
+
+    # Gives option to user on what to do next
+    back(user_id)
+
+
+def withdraw(user_id):
+    """
+    Allows user to withdraw from the account of their choosing
+    Minus input amount from the current balance
+    """
+    current_sheet = SHEET.worksheet("current")
+    current_data = current_sheet.get_all_values()
+
+    # Getting the current account balance and taking it in a float
+    for row in current_data[1:]:
+        if row[2] == user_id:
+            current_balance = float(row[1])
+            # Adding 1 to account for header row
+            row_index = current_data.index(row) + 1
+            break
+
+    # Taking the user's input for the withdrawal amount as a float
+    while True:
+        withdraw_amount = float(
+            input("Please enter the amount you wish to withdraw: $\n"))
+
+        # Check if the user's current balance is less than withdrawal input
+        if withdraw_amount > current_balance:
+            print("You have insufficient funds!")
+            continue
+
+        elif withdraw_amount < current_balance:
+            # Clearing terminal for better viewing
+            clear_term()
+            # Calculation for new balance
+            new_amount = current_balance - withdraw_amount
+
+            print(f"Success! You have withdrawn ${withdraw_amount}!")
+            print(f"Your new balance is ${new_amount}.\n")
+
+            # Updating the balance in the worksheet
+            current_sheet.update_cell(row_index, 2, new_amount)
+            break
+
+    # Gives option to user on what to do next
+    back(user_id)
+
+
+def check(user_id):
+    """
+    Allows user to check the balance in the account of their choosing
+    """
+    current_sheet = SHEET.worksheet("current")
+    current_data = current_sheet.get_all_values()
+
+    # Getting the current account balance and taking it in a float
+    for row in current_data[1:]:
+        if row[2] == user_id:
+            current_balance = float(row[1])
+            break
+    print(f"\nYour current account balance is {current_balance}.\n")
+    back(user_id)

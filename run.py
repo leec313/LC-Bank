@@ -171,124 +171,82 @@ def options(user_id):
     """
     print(f"ID: {user_id}\n")
     while True:
-        print("1: Deposit")
-        print("2: Withdraw")
-        print("3: Check Balance")
-        print("4: Logout")
-        selection = int(
-            input("Please select one of the options above to get started:\n"))
+        try:
+            print("1: Deposit")
+            print("2: Withdraw")
+            print("3: Check Balance")
+            print("4: Logout")
+            selection = int(
+                input("Select one of the options above to get started:\n"))
 
-        if selection == 1:
-            deposit(user_id)
+            if selection == 1:
+                transaction(user_id, "deposit")
+                break
+            if selection == 2:
+                transaction(user_id, "withdraw")
+                break
+            if selection == 3:
+                transaction(user_id, "check")
+                break
+            if selection == 4:
+                main()
+            else:
+                clear_term()
+                print(
+                    "Invalid! Enter a valid option.\n")
+                continue
             break
-        elif selection == 2:
-            withdraw(user_id)
-            break
-        elif selection == 3:
-            check(user_id)
-            break
-        elif selection == 4:
-            main()
-        else:
+        except ValueError:
             print(
-                f"Invalid! You entered {selection}, enter a valid option:\n")
-            continue
-        break
+                "Invalid! Enter a valid option.\n")
 
 
-def deposit(user_id):
+def transaction(user_id, transaction_type):
     """
-    Allows user to deposit from the account of their choosing
-    Adds input amount from the current balance
+    Performs the deposit, withdrawal,
+    or balance check transaction for the user.
     """
-    current_sheet = SHEET.worksheet("current")
-    current_data = current_sheet.get_all_values()
 
-    # Getting the current account balance and taking it in a float
-    for row in current_data[1:]:
+    worksheet = SHEET.get_worksheet(0)
+    data = worksheet.get_all_values()[1:]  # Skip the header row
+
+    # Find the user ID and retrieve the corresponding balance value
+    balance = None
+    user_row = None
+    for row in data:
         if row[2] == user_id:
-            current_balance = float(row[1])
-            # Adding 1 to account for header row
-            row_index = current_data.index(row) + 1
+            user_row = row
+            balance = float(row[1])
             break
 
-    # Taking the user's input for the deposit amount as a float
-    deposit_amount = float(
-        input("Please enter the amount you wish to deposit: $\n"))
+    # Error handling so if there is no user ID somehow
+    if balance is None:
+        print("User ID not found.")
+        return
 
-    # Clearing terminal for better viewing
-    clear_term()
+    if transaction_type == "deposit":
+        amount = float(input("Enter deposit amount: "))
+        balance += amount
+        print(f"Deposited {amount} successfully.")
+        back(user_id)
+    elif transaction_type == "withdraw":
+        amount = float(input("Enter withdrawal amount: "))
+        if balance < amount:
+            print("Insufficient balance.")
+            return
+        balance -= amount
+        print(f"Withdrawn {amount} successfully.")
+        back(user_id)
+    elif transaction_type == "check":
+        print(f"Your balance is: {balance}")
+        return
+        back(user_id)
 
-    # Calculation for new balance
-    new_amount = current_balance + deposit_amount
-
-    print(f"Success! You have deposited ${deposit_amount}!")
-    print(f"Your new balance is ${new_amount}.\n")
-
-    # Updating the balance in the worksheet
-    current_sheet.update_cell(row_index, 2, new_amount)
-
-    # Gives option to user on what to do next
-    back(user_id)
-
-
-def withdraw(user_id):
-    """
-    Allows user to withdraw from the account of their choosing
-    Minus input amount from the current balance
-    """
-    current_sheet = SHEET.worksheet("current")
-    current_data = current_sheet.get_all_values()
-
-    # Getting the current account balance and taking it in a float
-    for row in current_data[1:]:
-        if row[2] == user_id:
-            current_balance = float(row[1])
-            # Adding 1 to account for header row
-            row_index = current_data.index(row) + 1
-            break
-
-    # Taking the user's input for the withdrawal amount as a float
-    while True:
-        withdraw_amount = float(
-            input("Please enter the amount you wish to withdraw: $\n"))
-
-        # Check if the user's current balance is less than withdrawal input
-        if withdraw_amount > current_balance:
-            print("You have insufficient funds!")
-            continue
-
-        elif withdraw_amount < current_balance:
-            # Clearing terminal for better viewing
-            clear_term()
-            # Calculation for new balance
-            new_amount = current_balance - withdraw_amount
-
-            print(f"Success! You have withdrawn ${withdraw_amount}!")
-            print(f"Your new balance is ${new_amount}.\n")
-
-            # Updating the balance in the worksheet
-            current_sheet.update_cell(row_index, 2, new_amount)
-            break
-
-    # Gives option to user on what to do next
-    back(user_id)
-
-
-def check(user_id):
-    """
-    Allows user to check the balance in the account of their choosing
-    """
-    current_sheet = SHEET.worksheet("current")
-    current_data = current_sheet.get_all_values()
-
-    # Getting the current account balance and taking it in a float
-    for row in current_data[1:]:
-        if row[2] == user_id:
-            current_balance = float(row[1])
-            break
-    print(f"\nYour current account balance is {current_balance}.\n")
-    back(user_id)
+    # Update the balance value in the worksheet
+    user_row[1] = str(balance)
+    # Get the cell address for the user's balance
+    cell_address = f"B{data.index(user_row) + 2}"
+    worksheet.update(cell_address, str(balance))
 
 
 def clear_term():
@@ -309,8 +267,10 @@ def back(user_id):
             next_option = input(
                 "Press 1 to be taken back to the Menu or 2 to logout:\n")
             if next_option == "1":
+                clear_term()
                 options(user_id)
             elif next_option == "2":
+                clear_term()
                 main()
             else:
                 clear_term()
