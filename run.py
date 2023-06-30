@@ -1,3 +1,7 @@
+"""
+LC Bank is a bank account system that allows a user to login,
+create an account, check their balance, deposit, withdraw.
+"""
 import os
 import gspread
 from google.oauth2.service_account import Credentials
@@ -46,7 +50,7 @@ _____`--._ ''      . '---'``--._|:::::::|:::::::::::::::::::::::|
 
 def create_or_login():
     """
-    Allows the user to choose login or create an account. 
+    Allows the user to choose login or create an account.
     Runs correct function depending on the input
     """
     while True:
@@ -136,12 +140,12 @@ def login():
         input_1 = input("Enter your ID:\n")
         input_2 = input("Enter your password:\n")
 
-        for i, (id, password) in enumerate(zip(ids, passwords)):
-            if input_1 == id and input_2 == password:
+        for i, (user_id, password) in enumerate(zip(ids, passwords)):
+            if input_1 == user_id and input_2 == password:
                 name = names[i]
                 clear_term()
                 print(f"Welcome {name}! Thanks for banking with LC Bank.\n")
-                options(id)
+                options(user_id)
                 break
         else:
             print("Invalid ID or password. Please try again.")
@@ -149,34 +153,31 @@ def login():
         break
 
 
-def options(id):
+def options(user_id):
     """
     Asks user to select options on what they would like to do next
     Options may include withdraw, deposit, check balance etc.
     """
-    print(f"ID: {id}\n")
+    print(f"ID: {user_id}\n")
     while True:
         print("1: Deposit")
         print("2: Withdraw")
         print("3: Check Balance")
         print("4: Logout")
-        print("5: Exit")
         selection = int(
             input("Please select one of the options above to get started:\n"))
 
         if selection == 1:
-            deposit(id)
+            deposit(user_id)
             break
         elif selection == 2:
-            withdraw(id)
+            withdraw(user_id)
             break
         elif selection == 3:
-            check(id)
+            check(user_id)
             break
         elif selection == 4:
             main()
-        elif selection == 5:
-            exit()
         else:
             print(
                 f"Invalid! You entered {selection}, enter a valid option:\n")
@@ -184,7 +185,7 @@ def options(id):
         break
 
 
-def deposit(id):
+def deposit(user_id):
     """
     Allows user to deposit from the account of their choosing
     Adds input amount from the current balance
@@ -194,7 +195,7 @@ def deposit(id):
 
     # Getting the current account balance and taking it in a float
     for row in current_data[1:]:
-        if row[2] == id:
+        if row[2] == user_id:
             current_balance = float(row[1])
             # Adding 1 to account for header row
             row_index = current_data.index(row) + 1
@@ -217,10 +218,10 @@ def deposit(id):
     current_sheet.update_cell(row_index, 2, new_amount)
 
     # Gives option to user on what to do next
-    back(id)
+    back(user_id)
 
 
-def withdraw(id):
+def withdraw(user_id):
     """
     Allows user to withdraw from the account of their choosing
     Minus input amount from the current balance
@@ -230,7 +231,7 @@ def withdraw(id):
 
     # Getting the current account balance and taking it in a float
     for row in current_data[1:]:
-        if row[2] == id:
+        if row[2] == user_id:
             current_balance = float(row[1])
             # Adding 1 to account for header row
             row_index = current_data.index(row) + 1
@@ -242,7 +243,7 @@ def withdraw(id):
             input("Please enter the amount you wish to withdraw: $\n"))
 
         # Check if the user's current balance is less than withdrawal input
-        if (withdraw_amount > current_balance):
+        if withdraw_amount > current_balance:
             print("You have insufficient funds!")
             continue
 
@@ -260,10 +261,10 @@ def withdraw(id):
             break
 
     # Gives option to user on what to do next
-    back(id)
+    back(user_id)
 
 
-def check(id):
+def check(user_id):
     """
     Allows user to check the balance in the account of their choosing
     """
@@ -272,11 +273,11 @@ def check(id):
 
     # Getting the current account balance and taking it in a float
     for row in current_data[1:]:
-        if row[2] == id:
+        if row[2] == user_id:
             current_balance = float(row[1])
             break
     print(f"\nYour current account balance is {current_balance}.\n")
-    back(id)
+    back(user_id)
 
 
 def clear_term():
@@ -286,9 +287,9 @@ def clear_term():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def back(id):
+def back(user_id):
     """
-    Gives the user the option to either go back to the 
+    Gives the user the option to either go back to the
     login screen or the Menu
     """
 
@@ -297,7 +298,7 @@ def back(id):
             next_option = input(
                 "Press 1 to be taken back to the Menu or 2 to logout:\n")
             if next_option == "1":
-                options(id)
+                options(user_id)
             elif next_option == "2":
                 main()
             else:
