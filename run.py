@@ -6,6 +6,7 @@ import os
 import gspread
 from google.oauth2.service_account import Credentials
 
+# Connecting Google Sheet to project
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -59,7 +60,6 @@ def create_or_login():
                 input("Press 1 to Login or 2 to create an account: \n"))
             if option == 1:
                 login()
-                print(option)
             elif option == 2:
                 create_account()
         except ValueError:
@@ -137,20 +137,31 @@ def login():
         ids.append(sublist[2])
 
     while True:
+        print("\nForgot your ID? Press 'F'\n")
         input_1 = input("Enter your ID:\n")
-        input_2 = input("Enter your password:\n")
 
-        for i, (user_id, password) in enumerate(zip(ids, passwords)):
-            if input_1 == user_id and input_2 == password:
-                name = names[i]
-                clear_term()
-                print(f"Welcome {name}! Thanks for banking with LC Bank.\n")
-                options(user_id)
-                break
+        if input_1 == "f":
+            forgot_id()
+            break
         else:
-            print("Invalid ID or password. Please try again.")
-            continue
-        break
+            print("\nForgot your password? Press 'P'\n")
+            input_2 = input("Enter your password:\n")
+            if input_2 == "p":
+                forgot_password()
+                break
+            else:
+                for i, (user_id, password) in enumerate(zip(ids, passwords)):
+                    if input_1 == user_id and input_2 == password:
+                        name = names[i]
+                        clear_term()
+                        print(
+                            f"Welcome to LC Bank, {name}!\n")
+                        options(user_id)
+                        break
+                else:
+                    print("Invalid ID or password. Please try again.")
+                    continue
+                break
 
 
 def options(user_id):
@@ -306,6 +317,64 @@ def back(user_id):
                 print("Enter a valid option")
         except ValueError:
             print("Enter a valid option")
+
+
+def forgot_id():
+    """
+    Allows user to type in their name and it gives them their ID
+    """
+    clear_term()
+    # Getting the user and password data from the worksheet
+    user_data = SHEET.worksheet("password").get_all_values()
+
+    names = []
+    user_ids = []
+
+    # taking the user data and assigning it to corresponding elements
+    for sublist in user_data[1:]:  # Start from index 1 to skip the header row
+        names.append(sublist[0])
+        user_ids.append(sublist[2])
+
+    user_input = input("Enter your name: \n")
+
+    # Checking the input data against the spreadsheet data
+    for i, (name, user_id) in enumerate(zip(names, user_ids)):
+        if user_input == name:  # Compare the user input with the name
+            user_id = user_ids[i]  # Get the corresponding user ID
+            clear_term()
+            print(f"{user_input}, your ID is: {user_id}.\n")
+            break
+
+    login()
+
+
+def forgot_password():
+    """
+    Allows user to type in their ID and it gives them their password
+    """
+    clear_term()
+    # Getting the user and password data from the worksheet
+    user_data = SHEET.worksheet("password").get_all_values()
+
+    passwords = []
+    user_ids = []
+
+    # taking the user data and assigning it to corresponding elements
+    for sublist in user_data[1:]:  # Start from index 1 to skip the header row
+        passwords.append(sublist[1])
+        user_ids.append(sublist[2])
+
+    user_input = input("Enter your ID: \n")
+
+    # Checking the input data against the spreadsheet data
+    for i, (password, user_id) in enumerate(zip(passwords, user_ids)):
+        if user_input == user_id:  # Compare the user input with the name
+            password = passwords[i]  # Get the corresponding user ID
+            clear_term()
+            print(f"Your password is: {password}.\n")
+            break
+
+    login()
 
 
 def main():
