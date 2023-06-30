@@ -46,8 +46,8 @@ def welcome():
 _____`--._ ''      . '---'``--._|:::::::|:::::::::::::::::::::::|
 ----------`--._          ''      ``--.._|:::::::::::::::::::::::|
 `--._ _________`--._'        --     .   ''-----.................'
-    """
-    print(building)
+"""
+    print(Back.CYAN + building)
 
 
 def create_or_login():
@@ -71,6 +71,7 @@ def create_or_login():
             print(Fore.RED + "Invalid entry, please enter a valid option")
         else:
             break
+    print(Style.RESET_ALL)
 
 
 def create_account():
@@ -231,20 +232,22 @@ def transaction(user_id, transaction_type):
         return
 
     if transaction_type == "deposit":
-        amount = float(input("Enter deposit amount: "))
+        amount = float(input("Enter deposit amount: \n"))
         balance += amount
-        print(f"Deposited {amount} successfully.")
+        print(f"Deposited ${amount} successfully.")
+        print(f"Your balance is now ${balance}")
 
     elif transaction_type == "withdraw":
-        amount = float(input("Enter withdrawal amount: "))
+        amount = float(input("Enter withdrawal amount: \n"))
         if balance < amount:
             print("Insufficient balance.")
             return
         balance -= amount
-        print(f"Withdrawn {amount} successfully.")
+        print(f"Withdrew ${amount} successfully.")
+        print(f"Your balance is now ${balance}")
 
     elif transaction_type == "check":
-        print(f"Your balance is: {balance}")
+        print(f"Your balance is: ${balance}")
         return
 
     # Update the balance value in the worksheet
@@ -304,6 +307,7 @@ def forgot_credentials(credential_type):
         user_ids.append(sublist[2])
         passwords.append(sublist[1])
 
+    # Checks either password or ID based input from previous function
     if credential_type == "id":
         user_input = input("Enter your name: \n")
         # Checking the input data against the spreadsheet data
