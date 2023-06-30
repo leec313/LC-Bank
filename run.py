@@ -143,14 +143,16 @@ def login():
         ids.append(sublist[2])
 
     while True:
-        print("\nForgot your ID? Press 'F'\n")
+        print(Fore.RED + "\nForgot your ID? Press 'F'\n")
+        print(Style.RESET_ALL)
         input_1 = input("Enter your ID:\n")
 
         if input_1 == "f":
             forgot_credentials("id")
             break
         else:
-            print("\nForgot your password? Press 'P'\n")
+            print(Fore.RED + "\nForgot your password? Press 'P'\n")
+            print(Style.RESET_ALL)
             input_2 = input("Enter your password:\n")
             if input_2 == "p":
                 forgot_credentials("password")
@@ -199,8 +201,9 @@ def options(user_id):
                 main()
             else:
                 clear_term()
-                print(
-                    "Invalid! Enter a valid option.\n")
+                print(Fore.RED +
+                      "Invalid! Enter a valid option.\n")
+                print(Style.RESET_ALL)
                 continue
             break
         except ValueError:
@@ -231,24 +234,33 @@ def transaction(user_id, transaction_type):
         print("User ID not found.")
         return
 
-    if transaction_type == "deposit":
-        amount = float(input("Enter deposit amount: \n"))
-        balance += amount
-        print(f"Deposited ${amount} successfully.")
-        print(f"Your balance is now ${balance}")
+    while True:
 
-    elif transaction_type == "withdraw":
-        amount = float(input("Enter withdrawal amount: \n"))
-        if balance < amount:
-            print("Insufficient balance.")
-            return
-        balance -= amount
-        print(f"Withdrew ${amount} successfully.")
-        print(f"Your balance is now ${balance}")
+        if transaction_type == "deposit":
+            amount = float(input("Enter deposit amount: \n"))
+            balance += amount
+            print(Fore.GREEN + f"Deposited ${amount} successfully.")
+            print(Fore.CYAN + f"Your balance is now ${balance}")
+            print(Style.RESET_ALL)
 
-    elif transaction_type == "check":
-        print(f"Your balance is: ${balance}")
-        return
+        elif transaction_type == "withdraw":
+            amount = float(input("Enter withdrawal amount: \n"))
+            if balance < amount:
+                clear_term()
+                print(Fore.RED + "Insufficient balance.")
+                print(Style.RESET_ALL)
+                continue
+            else:
+                clear_term()
+                balance -= amount
+                print(Fore.GREEN + f"Withdrew ${amount} successfully.")
+                print(Fore.CYAN + f"Your balance is now ${balance}")
+                print(Style.RESET_ALL)
+
+        elif transaction_type == "check":
+            print(Fore.GREEN + f"Your balance is: ${balance}")
+            print(Style.RESET_ALL)
+        break
 
     # Update the balance value in the worksheet
     user_row[1] = str(balance)
