@@ -335,7 +335,7 @@ def forgot_credentials(credential_type):
 
             if not found_match:
                 print(
-                    Fore.RED + f"Not found. You enetered '{user_input}'.")
+                    Fore.RED + f"Not found. You entered '{user_input}'.")
                 print(Style.RESET_ALL)
                 continue
 
