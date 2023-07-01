@@ -167,7 +167,8 @@ def login():
                         options(user_id)
                         break
                 else:
-                    print("Invalid ID or password. Please try again.")
+                    print(Fore.LIGHTYELLOW_EX +
+                          "Invalid ID or password. Please try again.")
                     continue
                 break
 
@@ -320,27 +321,37 @@ def forgot_credentials(credential_type):
         passwords.append(sublist[1])
 
     # Checks either password or ID based input from previous function
-    if credential_type == "id":
-        user_input = input("Enter your name: \n")
-        # Checking the input data against the spreadsheet data
-        for name, user_id in zip(names, user_ids):
-            if user_input == name:  # Compare the user input with the name
-                clear_term()
-                print(f"Your {credential_type} is: {user_id}\n")
-                break
-    elif credential_type == "password":
-        user_input = input("Enter your ID: \n")
-        # Checking the input data against the spreadsheet data
-        for user_id, password in zip(user_ids, passwords):
-            if user_input == user_id:  # Compare the user input with the ID
-                clear_term()
-                print(f"Your {credential_type} is: {password}\n")
-                break
-    else:
-        print(f"Invalid credential type: {credential_type}")
-        login()
-        return
+    while True:
+        if credential_type == "id":
+            user_input = input("Enter your name: \n")
+            found_match = False
+            # Checking the input data against the spreadsheet data
+            for name, user_id in zip(names, user_ids):
+                if user_input == name:  # Compare the user input with the name
+                    clear_term()
+                    print(f"Your {credential_type} is: {user_id}\n")
+                    found_match = True
+                    break
 
+            if not found_match:
+                print(
+                    Fore.RED + f"Not found. You enetered '{user_input}'.")
+                print(Style.RESET_ALL)
+                continue
+
+        elif credential_type == "password":
+            user_input = input("Enter your ID: \n")
+            # Checking the input data against the spreadsheet data
+            for user_id, password in zip(user_ids, passwords):
+                if user_input == user_id:  # Compare the user input with the ID
+                    clear_term()
+                    print(f"Your {credential_type} is: {password}\n")
+                    break
+        else:
+            print(f"Invalid credential type: {credential_type}")
+            login()
+            return
+        break
     login()
 
 
