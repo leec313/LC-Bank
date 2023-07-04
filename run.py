@@ -147,30 +147,30 @@ def login():
         print(Style.RESET_ALL)
         input_1 = input("Enter your ID:\n")
 
-        if input_1 == "f" or input_1 == "F":
+        if input_1 in ("f", "F"):
             forgot_credentials("id")
             break
+
+        print(Fore.RED + "\nForgot your password? Press 'P'\n")
+        print(Style.RESET_ALL)
+        input_2 = input("Enter your password:\n")
+        if input_2 in ("p", "P"):
+            forgot_credentials("password")
+            break
+
+        for i, (user_id, password) in enumerate(zip(ids, passwords)):
+            if input_1 == user_id and input_2 == password:
+                name = names[i]
+                clear_term()
+                print(Back.MAGENTA +
+                      f"Welcome to LC Bank, {name}!\n")
+                options(user_id)
+                break
         else:
-            print(Fore.RED + "\nForgot your password? Press 'P'\n")
-            print(Style.RESET_ALL)
-            input_2 = input("Enter your password:\n")
-            if input_1 == "p" or input_1 == "P":
-                forgot_credentials("password")
-                break
-            else:
-                for i, (user_id, password) in enumerate(zip(ids, passwords)):
-                    if input_1 == user_id and input_2 == password:
-                        name = names[i]
-                        clear_term()
-                        print(Back.MAGENTA +
-                              f"Welcome to LC Bank, {name}!\n")
-                        options(user_id)
-                        break
-                else:
-                    print(Fore.LIGHTYELLOW_EX +
-                          "Invalid ID or password. Please try again.")
-                    continue
-                break
+            print(Fore.LIGHTYELLOW_EX +
+                  "Invalid ID or password. Please try again.")
+            continue
+        break
 
 
 def options(user_id):
