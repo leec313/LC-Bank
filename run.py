@@ -147,14 +147,14 @@ def login():
         print(Style.RESET_ALL)
         input_1 = input("Enter your ID:\n")
 
-        if input_1 == "f" or "F":
+        if input_1 == "f" or input_1 == "F":
             forgot_credentials("id")
             break
         else:
             print(Fore.RED + "\nForgot your password? Press 'P'\n")
             print(Style.RESET_ALL)
             input_2 = input("Enter your password:\n")
-            if input_2 == "p" or "P":
+            if input_1 == "p" or input_1 == "P":
                 forgot_credentials("password")
                 break
             else:
