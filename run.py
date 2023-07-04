@@ -244,21 +244,21 @@ def transaction(user_id, transaction_type):
             print(Fore.CYAN + f"Your balance is now ${balance}")
             print(Style.RESET_ALL)
 
-        elif transaction_type == "withdraw":
+        if transaction_type == "withdraw":
             amount = float(input("Enter withdrawal amount: \n"))
             if balance < amount:
                 clear_term()
                 print(Fore.RED + "Insufficient balance.")
                 print(Style.RESET_ALL)
                 continue
-            else:
-                clear_term()
-                balance -= amount
-                print(Fore.GREEN + f"Withdrew ${amount} successfully.")
-                print(Fore.CYAN + f"Your balance is now ${balance}")
-                print(Style.RESET_ALL)
 
-        elif transaction_type == "check":
+            clear_term()
+            balance -= amount
+            print(Fore.GREEN + f"Withdrew ${amount} successfully.")
+            print(Fore.CYAN + f"Your balance is now ${balance}")
+            print(Style.RESET_ALL)
+
+        if transaction_type == "check":
             print(Fore.GREEN + f"Your balance is: ${balance}")
             print(Style.RESET_ALL)
         break
