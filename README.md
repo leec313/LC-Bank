@@ -9,19 +9,17 @@ This application is a Python based bank account system. It allows the user to lo
 
 ## Table of contents
 
- 1. [ Pre-Project Planning ](#plan)  
- 2. [ Features Left to Implement ](#left)  
- 3. [ Technology used ](#tech) 
- 4. [ Testing ](#testing)  
- 5. [ Bugs ](#bugs)  
- 6. [ Deployment](#deployment)
- 7. [ Content](#content)  
- 8. [ Acknowledgements](#acknowledgements)  
+ 1. [ Pre-Project Planning ](<#pre-project-planning>)  
+ 2. [ Features Left to Implement ](<#features-left-to-implement>)  
+ 3. [ Technology used ](<#technology-used>) 
+ 4. [ Testing ](<#testing>)  
+ 5. [ Bugs ](<#bugs>)  
+ 6. [ Deployment](<#deployment>)
+ 7. [ Content](<#content--resources>)  
+ 8. [ Acknowledgements](<#acknowledgements>)  
 
 
 ## Flow
-
-<a name="plan"></a>
 
 ## Pre-project Planning
 
@@ -158,7 +156,7 @@ def check(user_id):
     back(user_id)
 ```
 
-_______________________________________________________________________________________________________
+_________________________________________________________________________
 
 ### Initial setup for Forgot password and forgot ID 
 
@@ -255,8 +253,6 @@ CREATE ACCOUNT IMAGES
 ID IMAGE
 - Once the account is created, they are taken to the login screen.
 
-<a name="left"></a>
-
 ## Features left to implement
 
 - Two Factor Authentication: 
@@ -277,8 +273,6 @@ ID IMAGE
 - Interest Calculation
     Introduce an interest calculation feature that calculates and updates the account balance based on a predefined interest rate and compounding frequency.
 
-
-<a name="tech"></a>
 
 # Technology Used
 ### [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
@@ -301,9 +295,6 @@ Used for injecting color into various ares for increased clarity
 
 ### [Google Sheets/Drive API](https://developers.google.com/sheets/api/reference/rest)
 Used for storing and accessing user data
-
-
-<a name="testing"></a>
 
 # Testing
 
@@ -363,8 +354,6 @@ I used the Pep8 checker tool to validate my python code and ensure it was free f
 
 IMAGE
 
-<a name="bugs"></a>
-
 ## **Bugs**
 
 #### Incorrect validation/Error handling within the transaction function
@@ -388,7 +377,6 @@ IMAGE
     
     IMAGE
 
-<a name="deployment"></a>
 
 ## Deployment
 
@@ -434,8 +422,6 @@ IMAGE
 
 [Deployed site](https://lc-bank-4b2b0ce68329.herokuapp.com/)
 
-<a name="content"></a>
-
 ## Content & Resources
 
 ### w3 schools
@@ -452,8 +438,6 @@ Used to reference different synthax issues and various other challenging areas t
 
 ### Youtube
 A great resource for finding information on how to go about things in Python. 
-
-<a name="acknowlegements"></a>
 
 ## Acknowledgements
 
