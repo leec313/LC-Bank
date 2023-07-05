@@ -230,27 +230,31 @@ Following the code refactoring process, the final implementation comprised a tot
 ![Login](https://github.com/leec313/LC-Bank/blob/main/images/login.png?raw=true)
 - They also have the option to select "f" or "F" if they have forgotten their ID and "p" or "P" if they have
 forgotten their password. If they select either of these options, they will be asked for their Name and it will
-show them their ID or they will input their ID if they forgot their password. 
-![forgot ID 1](https://github.com/leec313/LC-Bank/blob/main/images/ID_1.png?raw=true)
-![forgot ID 2](https://github.com/leec313/LC-Bank/blob/main/images/ID_2.png?raw=true)
-![forgot password 1](https://github.com/leec313/LC-Bank/blob/main/images/p_1.png?raw=true)
-![forgot password 2](https://github.com/leec313/LC-Bank/blob/main/images/p_2.png?raw=true)
+show them their ID or they will input their ID if they forgot their password.
+
+
+> ![forgot ID 1](https://github.com/leec313/LC-Bank/blob/main/images/ID_1.png?raw=true)
+> ![forgot ID 2](https://github.com/leec313/LC-Bank/blob/main/images/ID_2.png?raw=true)
+> ![forgot password 1](https://github.com/leec313/LC-Bank/blob/main/images/p_1.png?raw=true)
+> ![forgot password 2](https://github.com/leec313/LC-Bank/blob/main/images/p_2.png?raw=true)
 - Once logged in, they are shown the main menu or options:
-![options](https://github.com/leec313/LC-Bank/blob/main/images/options.png?raw=true)
+> ![options](https://github.com/leec313/LC-Bank/blob/main/images/options.png?raw=true)
+
+
 - If they select 1, they will be asked how much they would like to deposit. If they enter an invalid value, they will be taken back to 
 the main menu. If they enter a valid amount, it will be added to their account and the Google Sheet will be updated.
-![deposit](https://github.com/leec313/LC-Bank/blob/main/images/deposit.png?raw=true)
+> ![deposit](https://github.com/leec313/LC-Bank/blob/main/images/deposit.png?raw=true)
 - If they select 2, they will be asked how much they would like to withdraw. If they enter an invalid value, they will be taken back to 
 the main menu. If they enter a valid amount, it will be subtracted from their account and the Google Sheet will be updated.
-![withdraw](https://github.com/leec313/LC-Bank/blob/main/images/withdraw.png?raw=true)
+> ![withdraw](https://github.com/leec313/LC-Bank/blob/main/images/withdraw.png?raw=true)
 - If the user selects 3, the program will display the current balance of their account from the data taken from the Google Sheet. 
-![check balance](https://github.com/leec313/LC-Bank/blob/main/images/check.png?raw=true)
+> ![check balance](https://github.com/leec313/LC-Bank/blob/main/images/check.png?raw=true)
 - After each action/option is completed, they will be asked if they would like to go back to the main menu or logout. 
-![back](https://github.com/leec313/LC-Bank/blob/main/images/back.png?raw=true)
+> ![back](https://github.com/leec313/LC-Bank/blob/main/images/back.png?raw=true)
 - The final option in the main menu list is 4 and that is logout. This takes them back to the welcome message and asks if they would
 like to login or create an account. 
 - If the user decides to create an account, the program will ask them for their name and tell them to choose a password:
-![create account](https://github.com/leec313/LC-Bank/blob/main/images/create.png?raw=true)
+> ![create account](https://github.com/leec313/LC-Bank/blob/main/images/create.png?raw=true)
 - From there, an ID is generated based on the next available value from the Google Sheet. So for example, if the last account ID added to the sheet is
 20, the next user who creates an account will have the ID of 21.
 - Once the account is created, they are taken to the login screen.
@@ -258,22 +262,22 @@ like to login or create an account.
 ## Features left to implement
 
 - Two Factor Authentication: 
-    To enhance the login process and the functionality of the "forgot credentials" feature, it would be beneficial to implement a system that sends a text message to the user containing a randomly generated 6-digit code. The user would need to enter the correct code to proceed, and if incorrect, they would be prompted to try again. This implementation would require linking the user's phone number to their account within the Google Sheet, as well as incorporating more advanced coding techniques into the program.
+> To enhance the login process and the functionality of the "forgot credentials" feature, it would be beneficial to implement a system that sends a text message to the user containing a randomly generated 6-digit code. The user would need to enter the correct code to proceed, and if incorrect, they would be prompted to try again. This implementation would require linking the user's phone number to their account within the Google Sheet, as well as incorporating more advanced coding techniques into the program.
 
-- More use of ASCII art
-    In order to enhance the user experience, it could have been advantageous to incorporate additional ASCII art into the program. Alternatively, I chose to utilize Colorama, which enables the modification of text and background colors. Although the combined use of both ASCII art and Colorama could have potentially elevated the overall experience further.
+- More use of ASCII art: 
+> In order to enhance the user experience, it could have been advantageous to incorporate additional ASCII art into the program. Alternatively, I chose to utilize Colorama, which enables the modification of text and background colors. Although the combined use of both ASCII art and Colorama could have potentially elevated the overall experience further.
 
-- More options in the main menu
-  Including additional options in the main menu, such as the ability to choose other account types like Credit, Savings, and so on, could have been beneficial. However, due to time constraints and feasibility considerations, I decided to stick with a single account type, namely "current." If I had more time available, I believe implementing these additional options would have been relatively straightforward.
+- More options in the main menu:
+> Including additional options in the main menu, such as the ability to choose other account types like Credit, Savings, and so on, could have been beneficial. However, due to time constraints and feasibility considerations, I decided to stick with a single account type, namely "current." If I had more time available, I believe implementing these additional options would have been relatively straightforward.
 
-- Transaction History
-    Implement a feature that allows users to view their transaction history, providing them with a detailed record of their deposits, withdrawals, and account balance changes.
+- Transaction History:
+> Implement a feature that allows users to view their transaction history, providing them with a detailed record of their deposits, withdrawals, and account balance changes.
 
-- Account Statements
-    Provide users with the ability to generate and download account statements in a printable format, summarizing their financial activities within a specific time period.
+- Account Statements:
+> Provide users with the ability to generate and download account statements in a printable format, summarizing their financial activities within a specific time period.
 
-- Interest Calculation
-    Introduce an interest calculation feature that calculates and updates the account balance based on a predefined interest rate and compounding frequency.
+- Interest Calculation:
+> Introduce an interest calculation feature that calculates and updates the account balance based on a predefined interest rate and compounding frequency.
 
 
 # Technology Used
@@ -359,23 +363,23 @@ I used the Pep8 checker tool to validate my python code and ensure it was free f
 ## **Bugs**
 
 #### Incorrect validation/Error handling within the transaction function
-    When inputting an incorrect deposit/withdrawal value such as a string, the user should have been presented with a message to state this and asked to re-enter a valid number value. This was not the case, as it was returning to the previous function (options) and displaying the "Invalid! Enter a valid option." error instead. This did not make sense from a user experience point of view. I was able to implement a try: except statement that fixed this bug within the transaction function for both the deposit and withdraw scenarios. 
+> When inputting an incorrect deposit/withdrawal value such as a string, the user should have been presented with a message to state this and asked to re-enter a valid number value. This was not the case, as it was returning to the previous function (options) and displaying the "Invalid! Enter a valid option." error instead. This did not make sense from a user experience point of view. I was able to implement a try: except statement that fixed this bug within the transaction function for both the deposit and withdraw scenarios. 
 
 #### For the forgot credentials feature, the check was not correct for the input
-    When asking the user to enter "P" or "F" for forgotten password or ID, the check was not correct. It was checking just the uppercase and did not consider if the user entered the lowercase. I changed this from:
+> When asking the user to enter "P" or "F" for forgotten password or ID, the check was not correct. It was checking just the uppercase and did not consider if the user entered the lowercase. I changed this from:
     if user_input == "F":
-    to:
+> to:
     if user_input == "F" or user_input == "f":
-    This checks for both upper and lower case versions. 
+> This checks for both upper and lower case versions. 
     I then simplified the code to be more efficient and changed it to: 
     if user_input in ("f", "F"):
-    This checks if the value of user_input is either 'f' or 'F'. It uses the in operator to check if user_input is present in the tuple ("f", "F").
+> This checks if the value of user_input is either 'f' or 'F'. It uses the in operator to check if user_input is present in the tuple ("f", "F").
 
 #### When depositing/withdrawing, the user could enter a negative value
-    Upon testing, the user could enter a negative value for both the deposit and withdraw options. This made no sense from a user experience viewpoint. Adding a simple check to make sure the input amount was not less than 0, solved this issue.
+> Upon testing, the user could enter a negative value for both the deposit and withdraw options. This made no sense from a user experience viewpoint. Adding a simple check to make sure the input amount was not less than 0, solved this issue.
 
 #### Flake8 and Pylint displays warnings for the ASCII art
-    As per the screenshot below, there are warnings relating to the ASCII art. I have considered and acknowledged these warnings and came to the conclusion that they do not affect the program. 
+> As per the screenshot below, there are warnings relating to the ASCII art. I have considered and acknowledged these warnings and came to the conclusion that they do not affect the program. 
     
 ![warnings](https://github.com/leec313/LC-Bank/blob/main/images/warnings.png?raw=true)
 
