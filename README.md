@@ -15,9 +15,8 @@ This application is a Python based bank account system. It allows the user to lo
  4. [ Testing ](#testing)  
  5. [ Bugs ](#bugs)  
  6. [ Deployment](#deployment)
- 7. [ Credits](#credits)
- 8. [ Content](#content)  
- 9. [ Acknowledgements](#acknowledgements)  
+ 7. [ Content](#content)  
+ 8. [ Acknowledgements](#acknowledgements)  
 
 
 ## Flow
@@ -358,3 +357,104 @@ The following tests are on the error handling throughout the project. If the err
 |If the user tries to press anything other than 1 or 2, such as a string/letter/any other number, it will show an error message and ask them to try again|Pass|
     
 
+### Pep8 Checker tool
+
+I used the Pep8 checker tool to validate my python code and ensure it was free from errors. [The actual Pep8 checker is not working](http://ww1.pep8online.com/) so I used [this one here as I found it via Code Institute Slack](https://pep8ci.herokuapp.com/). As shown here:
+
+IMAGE
+
+<a name="bugs"></a>
+
+## **Bugs**
+
+#### Incorrect validation/Error handling within the transaction function
+    When inputting an incorrect deposit/withdrawal value such as a string, the user should have been presented with a message to state this and asked to re-enter a valid number value. This was not the case, as it was returning to the previous function (options) and displaying the "Invalid! Enter a valid option." error instead. This did not make sense from a user experience point of view. I was able to implement a try: except statement that fixed this bug within the transaction function for both the deposit and withdraw scenarios. 
+
+#### For the forgot credentials feature, the check was not correct for the input
+    When asking the user to enter "P" or "F" for forgotten password or ID, the check was not correct. It was checking just the uppercase and did not consider if the user entered the lowercase. I changed this from:
+    if user_input == "F":
+    to:
+    if user_input == "F" or user_input == "f":
+    This checks for both upper and lower case versions. 
+    I then simplified the code to be more efficient and changed it to: 
+    if user_input in ("f", "F"):
+    This checks if the value of user_input is either 'f' or 'F'. It uses the in operator to check if user_input is present in the tuple ("f", "F").
+
+#### When depositing/withdrawing, the user could enter a negative value
+    Upon testing, the user could enter a negative value for both the deposit and withdraw options. This made no sense from a user experience viewpoint. Adding a simple check to make sure the input amount was not less than 0, solved this issue.
+
+#### Flake8 and Pylint displays warnings for the ASCII art
+    As per the screenshot below, there are warnings relating to the ASCII art. I have considered and acknowledged these warnings and came to the conclusion that they do not affect the program. 
+    
+    IMAGE
+
+<a name="deployment"></a>
+
+## Deployment
+
+- Navigate to heroku.com & log in.
+
+- Click "new" and create a new App.
+
+- Give the application a name and then choose your region and Click "Create app".
+
+- On the next page click on the Settings tab to adjust the settings.
+
+- Click on the 'config vars' button.
+
+- Supply a KEY of PORT and it's value of 8000. Then click on the "add" button.
+
+- Add data from CREDS.json to link Google Sheet.
+
+- Buildpacks now need to be added. 
+
+- These install future dependancies that we need outside of the requirements file.
+
+- Select Python first and then node.js and click save. 
+
+- **Make sure they are in this order.**
+
+- Then go to the deploy section and choose your deployment method. 
+
+- To connect with github select github and confirm.
+
+- Search for your repository select it and click connect.
+
+- You can choose to either deploy using automatic deploys which means heroku will rebuild the app everytime you push your changes. 
+
+- For this option choose the branch to deploy and click enable automatic deploys. 
+
+- This can be changed at a later date to manual. 
+
+- Manual deployment deploys the current state of a branch.
+
+- Click deploy branch.
+
+- We can now click on the open App button above to view our application.
+
+[Deployed site](https://lc-bank-4b2b0ce68329.herokuapp.com/)
+
+<a name="content"></a>
+
+## Content & Resources
+
+### w3 schools
+Used to reference Python Structure
+
+### [ASCIIART.EU](https://www.asciiart.eu/)
+Used for the welcome message.
+
+### Code Institute
+Project created in line with course content and within project 3 scope.
+
+### Stack Overflow
+Used to reference different synthax issues and various other challenging areas that I came across.
+
+### Youtube
+A great resource for finding information on how to go about things in Python. 
+
+<a name="acknowlegements"></a>
+
+## Acknowledgements
+
+This program was developed as part of my participation in the Full Stack Software Development (E-commerce Applications) course at Code Institute. It served as my Portfolio Project 3 and has been an incredibly valuable learning experience within a relatively short timeframe. Through this project, I have gained a substantial level of confidence in working with the Python programming language. I am grateful for the support provided by the Code Institute Slack Community, especially my group, as well as the tutors who were readily available online. Additionally, I would like to express my gratitude to my mentor, Rory Patrick Sheridan, and Cohort Facilitator Alan Bushell, for their invaluable assistance throughout my journey.
