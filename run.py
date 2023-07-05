@@ -238,7 +238,13 @@ def transaction(user_id, transaction_type):
     while True:
 
         if transaction_type == "deposit":
-            amount = float(input("Enter deposit amount: \n"))
+            amount = input("Enter deposit amount: \n")
+            try:
+                amount = float(amount)
+            except ValueError:
+                print("Please enter a valid number amount!")
+                continue
+
             balance += amount
             print(Fore.GREEN + f"Deposited ${amount} successfully.")
             print(Fore.CYAN + f"Your balance is now ${balance}")
