@@ -16,7 +16,7 @@ This application is a Python based bank account system. It allows the user to lo
  5. [ Bugs ](<#bugs>)  
  6. [ Deployment](<#deployment>)
  7. [ Content](<#content--resources>)  
- 8. [ Acknowledgements](<#acknowledgements>)  
+ 8. [ Acknowledgments](<#acknowledgments>)  
 
 
 ## Flow
@@ -441,6 +441,6 @@ Used to reference different synthax issues and various other challenging areas t
 ### Youtube
 A great resource for finding information on how to go about things in Python. 
 
-## Acknowledgements
+## Acknowledgments
 
 This program was developed as part of my participation in the Full Stack Software Development (E-commerce Applications) course at Code Institute. It served as my Portfolio Project 3 and has been an incredibly valuable learning experience within a relatively short timeframe. Through this project, I have gained a substantial level of confidence in working with the Python programming language. I am grateful for the support provided by the Code Institute Slack Community, especially my group, as well as the tutors who were readily available online. Additionally, I would like to express my gratitude to my mentor, Rory Patrick Sheridan, and Cohort Facilitator Alan Bushell, for their invaluable assistance throughout my journey.
