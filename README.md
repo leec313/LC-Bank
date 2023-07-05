@@ -337,6 +337,24 @@ The following tests are on the error handling throughout the project. If the err
 |At login, the user should enter their ID, then their password. If either do not match, they are shown an error message and will be asked to try again.|Pass|
 
     At login, if the user forgets their ID or password, they can press F or P respectively to gain access to this data. 
+| Test | Result |
+|--|--|
 |If there is no matching name for the corresponding ID, they will be shown an error and asked to try again|Pass|
-||Pass|
+|If there is no matching ID for the corresponding password, they will be shown an error and asked to try again|Pass|
+
+    After login, user is presented with their options - Deposit, Withdraw, Check Balance and Logout.
+| Test | Result |
+|--|--|
+|If the user inputs an option outside of the available options, it should show an error message and ask them to retry|Pass|
+|Deposit: If the user enters an invalid character such as a string/letter, it should show an error and ask them to retry |Pass|
+|Deposit: If the user enters a negative value such as -100, it should show an error and ask them to retry as it should only be a positive value |Pass|
+|Withdraw: If the user enters an invalid character such as a string/letter, it should show an error and ask them to retry |Pass|
+|Withdraw: If the user enters a negative value such as -100, it should show an error and ask them to retry as it should only be a positive value |Pass|
+|Withdraw: If the user enters a value that exceeds their current balance, it should show an error and ask them to retry and show an insufficient funds message |Pass|
+
+    For the back() function, it should ask the user to select 1 to return to the options menu or 2 to logout. Any other inputs should result in an error message. 
+| Test | Result |
+|--|--|
+|If the user tries to press anything other than 1 or 2, such as a string/letter/any other number, it will show an error message and ask them to try again|Pass|
+    
 
