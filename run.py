@@ -207,9 +207,12 @@ def options(user_id):
                 print(Style.RESET_ALL)
                 continue
             break
-        except ValueError as exc:
-            raise ValueError(
-                "Invalid! Enter a valid option.") from exc
+        except ValueError:
+            clear_term()
+            print(Fore.RED +
+                  "Invalid! Enter a valid option.\n")
+            print(Style.RESET_ALL)
+            continue
 
 
 def transaction(user_id, transaction_type):
