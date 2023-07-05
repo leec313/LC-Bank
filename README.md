@@ -30,6 +30,16 @@ I chose to develop a banking system using Python as my project 3. After finalizi
 
 Flow chart here
 
+## User Stories
+
+- With the bank account program, I can securely access my account whenever needed.
+- The bank account program should provide a seamless account creation process.
+- I should be able to conveniently check my account balance using the program.
+- The program should allow me to effortlessly deposit funds into my account.
+- With the program, I can easily withdraw money from my account whenever required.
+- In case I forget my password or ID, the program should provide an easy way to recover them.
+- I should be able to securely log out of my bank account using the program.
+
 ## Pre-Planning Structure
 
 ### Structure
