@@ -207,9 +207,9 @@ def options(user_id):
                 print(Style.RESET_ALL)
                 continue
             break
-        except ValueError:
-            print(
-                "Invalid! Enter a valid option.\n")
+        except ValueError as exc:
+            raise ValueError(
+                "Invalid! Enter a valid option.") from exc
 
 
 def transaction(user_id, transaction_type):
@@ -230,40 +230,61 @@ def transaction(user_id, transaction_type):
             balance = float(row[1])
             break
 
-    # Error handling so if there is no user ID somehow
-    if balance is None:
-        print("User ID not found.")
-        return
-
     while True:
 
+        # For Deposit option
         if transaction_type == "deposit":
-            amount = input("Enter deposit amount: \n")
+
+            # Error Handling: Check if input is a number
             try:
-                amount = float(amount)
+                amount = float(input("Enter deposit amount: \n"))
+                # Make sure input is a positive number
+                if amount <= 0:
+                    print(Fore.RED + "Please enter a positive value!")
+                    print(Style.RESET_ALL)
+                    continue
+            # If not a number input, print error and ask to re-enter
             except ValueError:
-                print("Please enter a valid number amount!")
+                print(Fore.RED + "Please enter a valid number amount!")
+                print(Style.RESET_ALL)
                 continue
 
+            # Printing the successful deposit message
             balance += amount
             print(Fore.GREEN + f"Deposited ${amount} successfully.")
             print(Fore.CYAN + f"Your balance is now ${balance}")
             print(Style.RESET_ALL)
 
+        # For Withdraw option
         if transaction_type == "withdraw":
-            amount = float(input("Enter withdrawal amount: \n"))
+            # Error Handling: Check if input is a number
+            try:
+                amount = float(input("Enter withdrawal amount: \n"))
+                # Make sure input is a positive number
+                if amount <= 0:
+                    print(Fore.RED + "Please enter a positive value!")
+                    print(Style.RESET_ALL)
+                    continue
+            # If not a number input, print error and ask to re-enter
+            except ValueError:
+                print(Fore.RED + "Please enter a valid number amount!")
+                print(Style.RESET_ALL)
+                continue
+
             if balance < amount:
                 clear_term()
                 print(Fore.RED + "Insufficient balance.")
                 print(Style.RESET_ALL)
                 continue
 
+            # Printing the successful withdrawal message
             clear_term()
             balance -= amount
             print(Fore.GREEN + f"Withdrew ${amount} successfully.")
             print(Fore.CYAN + f"Your balance is now ${balance}")
             print(Style.RESET_ALL)
 
+        # For Check balance option
         if transaction_type == "check":
             print(Fore.GREEN + f"Your balance is: ${balance}")
             print(Style.RESET_ALL)
