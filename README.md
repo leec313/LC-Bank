@@ -272,25 +272,25 @@ ID IMAGE
 <a name="tech"></a>
 
 # Technology Used
-### Python
+### [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 Used to create the application
 
-### Heroku
+### [Heroku](https://heroku.com)
 Used to deploy and host the application
 
-### Github
+### [Github](https://github.com)
 Used to store the code
 
-### Gitpod
+### [Gitpod](https://gitpod.io)
 IDE used for creating the application
 
-### Git
+### [Git](https://en.wikipedia.org/wiki/Git)
 Used for version control
 
-### Colorama
+### [Colorama](https://pypi.org/project/colorama/)
 Used for injecting color into various ares for increased clarity
 
-### Google Sheets/Drive API
+### [Google Sheets/Drive API](https://developers.google.com/sheets/api/reference/rest)
 Used for storing and accessing user data
 
 
