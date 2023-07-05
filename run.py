@@ -347,11 +347,13 @@ def forgot_credentials(credential_type):
         user_ids.append(sublist[2])
         passwords.append(sublist[1])
 
+    found_match = False
+
     # Checks either password or ID based input from previous function
     while True:
         if credential_type == "id":
             user_input = input("Enter your name: \n")
-            found_match = False
+
             # Checking the input data against the spreadsheet data
             for name, user_id in zip(names, user_ids):
                 if user_input == name:  # Compare the user input with the name
@@ -373,7 +375,13 @@ def forgot_credentials(credential_type):
                 if user_input == user_id:  # Compare the user input with the ID
                     clear_term()
                     print(f"Your {credential_type} is: {password}\n")
+                    found_match = True
                     break
+            if not found_match:
+                print(
+                    Fore.RED + f"Not found. You entered '{user_input}'.")
+                print(Style.RESET_ALL)
+                continue
         else:
             print(f"Invalid credential type: {credential_type}")
             login()
