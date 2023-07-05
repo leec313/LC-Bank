@@ -308,9 +308,9 @@ Used for storing and accessing user data
 
 # Testing
 
-### Testing Phase
+## Testing Phase
 
-#### Manual Testing
+### Manual Testing
 
 | Test | Result |
 |--|--|
@@ -323,3 +323,20 @@ Used for storing and accessing user data
 |After login, main menu of options appear and shows the ID of the user|Pass|
 |All options work as intended and updated/access the data sheet as necessary|Pass|
 |Logout option brings the user back to the welcome screen and forgets the user ID|Pass|
+
+### User tests
+
+The following tests are on the error handling throughout the project. If the error handling works as expected it will be marked as pass. If it does not work as expected then it will be marked as a fail.
+
+    Create or Login test - on startup, the user can select only 2 options. Press 1 or press 2 - anything else will provide an error and ask them to try again.
+| Test | Result |
+|--|--|
+|Program start, user enters anything other than 1 or 2 throws error|Pass|
+|Press 1, allows user to login|Pass|
+|Press 2, allows user to create an account|Pass|
+|At login, the user should enter their ID, then their password. If either do not match, they are shown an error message and will be asked to try again.|Pass|
+
+    At login, if the user forgets their ID or password, they can press F or P respectively to gain access to this data. 
+|If there is no matching name for the corresponding ID, they will be shown an error and asked to try again|Pass|
+||Pass|
+
