@@ -225,32 +225,34 @@ Following the code refactoring process, the final implementation comprised a tot
 
 - When the program starts, the user is presented with the welcome message that is ASCII art of the bank building
 - They are presented with options to either login or create an account:
-LOGIN OR CREATE ACCOUNT IMAGE
+![create or login](https://github.com/leec313/LC-Bank/blob/main/images/login_create.png?raw=true)
 - If the user selects login, they can enter their ID and Password. 
-LOGIN DETAILS IMAGE
+![Login](https://github.com/leec313/LC-Bank/blob/main/images/login.png?raw=true)
 - They also have the option to select "f" or "F" if they have forgotten their ID and "p" or "P" if they have
 forgotten their password. If they select either of these options, they will be asked for their Name and it will
 show them their ID or they will input their ID if they forgot their password. 
-FORGOT IMAGES HERE
+![forgot ID 1](https://github.com/leec313/LC-Bank/blob/main/images/ID_1.png?raw=true)
+![forgot ID 2](https://github.com/leec313/LC-Bank/blob/main/images/ID_2.png?raw=true)
+![forgot password 1](https://github.com/leec313/LC-Bank/blob/main/images/p_1.png?raw=true)
+![forgot password 2](https://github.com/leec313/LC-Bank/blob/main/images/p_2.png?raw=true)
 - Once logged in, they are shown the main menu or options:
-OPTIONS IMAGE
+![options](https://github.com/leec313/LC-Bank/blob/main/images/options.png?raw=true)
 - If they select 1, they will be asked how much they would like to deposit. If they enter an invalid value, they will be taken back to 
 the main menu. If they enter a valid amount, it will be added to their account and the Google Sheet will be updated.
-DEPOSIT IMAGE
+![deposit](https://github.com/leec313/LC-Bank/blob/main/images/deposit.png?raw=true)
 - If they select 2, they will be asked how much they would like to withdraw. If they enter an invalid value, they will be taken back to 
 the main menu. If they enter a valid amount, it will be subtracted from their account and the Google Sheet will be updated.
-WITHDRAW IMAGE
+![withdraw](https://github.com/leec313/LC-Bank/blob/main/images/withdraw.png?raw=true)
 - If the user selects 3, the program will display the current balance of their account from the data taken from the Google Sheet. 
-CHECK IMAGE
+![check balance](https://github.com/leec313/LC-Bank/blob/main/images/check.png?raw=true)
 - After each action/option is completed, they will be asked if they would like to go back to the main menu or logout. 
-BACK IMAGE
+![back](https://github.com/leec313/LC-Bank/blob/main/images/back.png?raw=true)
 - The final option in the main menu list is 4 and that is logout. This takes them back to the welcome message and asks if they would
 like to login or create an account. 
 - If the user decides to create an account, the program will ask them for their name and tell them to choose a password:
-CREATE ACCOUNT IMAGES
+![create account](https://github.com/leec313/LC-Bank/blob/main/images/create.png?raw=true)
 - From there, an ID is generated based on the next available value from the Google Sheet. So for example, if the last account ID added to the sheet is
-20, the next user who creates an account will have the ID of 21:
-ID IMAGE
+20, the next user who creates an account will have the ID of 21.
 - Once the account is created, they are taken to the login screen.
 
 ## Features left to implement
@@ -352,7 +354,7 @@ The following tests are on the error handling throughout the project. If the err
 
 I used the Pep8 checker tool to validate my python code and ensure it was free from errors. [The actual Pep8 checker is not working](http://ww1.pep8online.com/) so I used [this one here as I found it via Code Institute Slack](https://pep8ci.herokuapp.com/). As shown here:
 
-IMAGE
+![pep8](https://github.com/leec313/LC-Bank/blob/main/images/pep8.png?raw=true)
 
 ## **Bugs**
 
@@ -375,7 +377,7 @@ IMAGE
 #### Flake8 and Pylint displays warnings for the ASCII art
     As per the screenshot below, there are warnings relating to the ASCII art. I have considered and acknowledged these warnings and came to the conclusion that they do not affect the program. 
     
-    IMAGE
+![warnings](https://github.com/leec313/LC-Bank/blob/main/images/warnings.png?raw=true)
 
 
 ## Deployment
