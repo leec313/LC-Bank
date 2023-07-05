@@ -25,7 +25,7 @@ This application is a Python based bank account system. It allows the user to lo
 
 I chose to develop a banking system using Python as my project 3. After finalizing this idea, I began mapping out the workflow and utilized Lucid Chart to generate a user-friendly process diagram. I created this diagram early on to grasp the necessary logic for project completion and determine the sequential steps for implementation. To gain a clearer understanding of the initial design and concept, please refer to the provided flow chart below. The initial design may have changed slightly as I implemented features such as the forgot password/ID function, however the base concept is relatively the same. 
 
-Flow chart here
+![flow](https://github.com/leec313/LC-Bank/blob/main/images/flow.png?raw=true)
 
 ## User Stories
 
